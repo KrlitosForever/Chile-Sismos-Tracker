@@ -1,6 +1,6 @@
 # 🌎 Chile Sismos Tracker 🌍
 
-**¡Bienvenido a Chile Seismic Tracker!**  
+**¡Bienvenido a Chile Sismos Tracker!**  
 Este es un proyecto que te permite visualizar los últimos **15 sismos** registrados en Chile de manera rápida y entretenida.  
 Cada sismo viene acompañado de un **emoji** que refleja la magnitud o la intensidad del temblor, haciendo que la experiencia sea más interactiva.
 
