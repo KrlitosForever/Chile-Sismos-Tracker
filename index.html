@@ -1,28 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página en Progreso</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #f0f4f8; /* Fondo de color suave */
-            font-family: Arial, sans-serif;
-        }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Metadata general -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Visualización de los últimos 15 sismos en Chile."
+    />
+    <meta
+      name="keywords"
+      content="sismos, terremotos, Chile, visualización, magnitud"
+    />
+    <meta name="author" content="Carlos Carrasco" />
 
-        h1 {
-            color: #333;
-            font-size: 2.5rem;
-        }
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Visualización de últimos 15 Sismos en Chile"
+    />
+    <meta
+      property="og:description"
+      content="Consulta los últimos sismos registrados en Chile, con información detallada de magnitud, profundidad y ubicación."
+    />
+    <meta property="og:image" content="http://www.clubinformatico.cl/club-informatico.png" />
+    <meta property="og:url" content="https://sismos.clubinformatico.cl/" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Visualización de últimos 15 Sismos en Chile"
+    />
+    <meta
+      name="twitter:description"
+      content="Consulta los últimos sismos registrados en Chile, con información detallada de magnitud, profundidad y ubicación."
+    />
+    <meta
+      name="twitter:image"
+      content="http://www.clubinformatico.cl/club-informatico.png"
+    />
+    <title>Visualización de Sismos</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #f4f4f4;
+        color: #333;
+      }
+      .card {
+        margin-bottom: 15px;
+        background-color: #e0f7fa;
+        border: 1px solid #00897b;
+        border-radius: 5px;
+      }
+      .emoji {
+        font-size: 1.5em;
+      }
+      .header {
+        background-color: #00897b;
+        color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
     </style>
-</head>
-<body>
-    <h1>Página en Progreso</h1>
-</body>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header text-center">
+        <h1>Visualización de Sismos</h1>
+        <p>Datos de los últimos 15 sismos registrados</p>
+      </div>
+      <div id="sismos-container" class="row">
+        <!-- Aquí se llenarán las tarjetas dinámicamente -->
+      </div>
+    </div>
+    <script>
+      fetch("https://api.gael.cloud/general/public/sismos")
+        .then((response) => response.json())
+        .then((data) => {
+          const sismosContainer = document.getElementById("sismos-container");
+          data.forEach((sismo) => {
+            const emoji = sismo.Magnitud >= 5 ? "😨" : "😊";
+            const card = `<div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Magnitud: ${sismo.Magnitud}</h5>
+                                <p class="card-text">
+                                    <strong>Fecha:</strong> ${sismo.Fecha}<br>
+                                    <strong>Profundidad:</strong> ${sismo.Profundidad} km<br>
+                                    <strong>Ubicación:</strong> ${sismo.RefGeografica}<br>
+                                    <span class="emoji">${emoji}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>`;
+            sismosContainer.innerHTML += card;
+          });
+        });
+    </script>
+  </body>
 </html>
